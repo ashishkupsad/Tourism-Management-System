@@ -5,14 +5,23 @@ if(isset($_POST['submit']))
 $issue=$_POST['issue'];
 $description=$_POST['description'];
 $email=$_SESSION['login'];
-$sql1 = "SELECT UserId from tblusers where EmailId = :email";
+$sql1 = "SELECT id from tblusers where EmailId = :email";
 $query = $dbh->prepare($sql1);
+$query->bindParam(':email',$email,PDO::PARAM_STR);
 $query->execute();
-$sql="INSERT INTO  tblissues(UserId,Issue,Description) VALUES(:email,:issue,:description)";
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{
+	$userid = $result->id;
+}
+}
+$sql="INSERT INTO  tblissues(UserId,Issue,Description) VALUES(:userid,:issue,:description)";
 $query = $dbh->prepare($sql);
+$query->bindParam(':userid',$userid,PDO::PARAM_STR);
 $query->bindParam(':issue',$issue,PDO::PARAM_STR);
 $query->bindParam(':description',$description,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
