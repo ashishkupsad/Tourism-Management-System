@@ -6,8 +6,8 @@ $fname=$_POST['fname'];
 $mnumber=$_POST['mobilenumber'];
 $email=$_POST['email'];
 $password=md5($_POST['password']);
-$sql="INSERT INTO  tblusers(FullName,MobileNumber,EmailId,Password) VALUES(:fname,:mnumber,:email,:password)";
-$query = $dbh->prepare($sql);
+$sql2="INSERT INTO  tblusers(FullName,MobileNumber,EmailId,Password) VALUES(:fname,:mnumber,:email,:password)";
+$query = $dbh->prepare($sql2);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
 $query->bindParam(':mnumber',$mnumber,PDO::PARAM_STR);
 $query->bindParam(':email',$email,PDO::PARAM_STR);
@@ -16,13 +16,13 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$_SESSION['msg']="You are Scuccessfully registered. Now you can login ";
-header('location:thankyou.php');
+	$_SESSION['msg']="You are Successfully registered. Now you can login ";
+	echo "<script type='text/javascript'> document.location = 'thankyou.php'; </script>";
 }
 else 
 {
-$_SESSION['msg']="Something went wrong. Please try again.";
-header('location:thankyou.php');
+	$_SESSION['msg']="Something went wrong. Please try again.";
+	echo "<script type='text/javascript'> document.location = 'thankyou.php'; </script>";
 }
 }
 ?>

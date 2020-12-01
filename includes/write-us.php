@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-if(isset($_POST['submit']))
+if(isset($_POST['writeus']))
 {
 $issue=$_POST['issue'];
 $description=$_POST['description'];
@@ -23,8 +23,8 @@ $query->bindParam(':userid',$userid,PDO::PARAM_STR);
 $query->bindParam(':issue',$issue,PDO::PARAM_STR);
 $query->bindParam(':description',$description,PDO::PARAM_STR);
 $query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
+$lastInsertId1 = $dbh->lastInsertId();
+if($lastInsertId1)
 {
 $_SESSION['msg']="Info successfully submited ";
 echo "<script type='text/javascript'> document.location = 'thankyou.php'; </script>";
@@ -67,7 +67,7 @@ echo "<script type='text/javascript'> document.location = 'thankyou.php'; </scri
 											</ul>
 											<div class="sub-bn">
 												<form>
-													<button type="submit" name="submit" class="subbtn">Submit</button>
+													<button type="submit" name="writeus" class="subbtn">Submit</button>
 												</form>
 											</div>
 									</div>
