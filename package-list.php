@@ -64,7 +64,7 @@ foreach($results as $result)
 					<p><b>Features</b> <?php echo htmlentities($result->PackageFetures);?></p>
 				</div>
 				<div class="col-md-3 room-right wow fadeInRight animated" data-wow-delay=".5s">
-					<h5>USD <?php echo htmlentities($result->PackagePrice);?></h5>
+					<h5>Rs. <?php echo htmlentities($result->PackagePrice);?></h5>
 					<a href="package-details.php?pkgid=<?php echo htmlentities($result->PackageId);?>" class="view">Details</a>
 				</div>
 				<div class="clearfix"></div>

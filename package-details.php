@@ -130,7 +130,7 @@ foreach($results as $result)
 						<div class="clearfix"></div>
 				<div class="grand">
 					<p>Grand Total</p>
-					<h3>USD.800</h3>
+					<h3>Rs. <?php echo htmlentities($result->PackagePrice);?></h3>
 				</div>
 			</div>
 		<h3>Package Details</h3>

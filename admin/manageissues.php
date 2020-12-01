@@ -159,7 +159,7 @@ foreach($results as $result)
 								<td width="50"><?php echo htmlentities($result->PostingDate);?></td>
 			
 
-<td><a href="javascript:void(0);" onClick="popUpWindow('http://localhost/tms/admin/updateissue.php?iid=<?php echo ($result->id);?>');">View </a>
+<td><a href="javascript:void(0);" onClick="popUpWindow('http://localhost:8080/tms/admin/updateissue.php?iid=<?php echo ($result->id);?>');">View </a>
 </td>
 
 </tr>
