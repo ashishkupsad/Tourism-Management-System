@@ -11,45 +11,56 @@ if(isset($_REQUEST['bkid']))
 	{
 		$bid=intval($_GET['bkid']);
 $email=$_SESSION['login'];
-	$sql ="SELECT FromDate FROM tblbooking WHERE UserEmail=:email and BookingId=:bid";
+$sql1 = "SELECT id from tblusers where EmailId = :email";
+$query = $dbh->prepare($sql1);
+$query->bindParam(':email',$email,PDO::PARAM_STR);
+$query->execute();
+$results1 = $query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+	foreach($results1 as $result)
+	{
+		$userid = $result->id;
+	}
+}
+$sql ="SELECT FromDate FROM tblbooking WHERE UserId=:userid and BookingId=:bid";
 $query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
+$query-> bindParam(':userid', $userid, PDO::PARAM_STR);
 $query-> bindParam(':bid', $bid, PDO::PARAM_STR);
 $query-> execute();
 $results = $query -> fetchAll(PDO::FETCH_OBJ);
 if($query->rowCount() > 0)
 {
-foreach($results as $result)
-{
-	 $fdate=$result->FromDate;
+	foreach($results as $result)
+	{
+		$fdate=$result->FromDate;
+		$a=explode("/",$fdate);
+		$val=array_reverse($a);
+		$mydate =implode("/",$val);
+		$cdate=date('Y/m/d');
+		$date1=date_create("$cdate");
+		$date2=date_create("$fdate");
+		$diff=date_diff($date1,$date2);
+		echo $df=$diff->format("%a");
+		if($df>1)
+		{
+			$status=2;
+			$cancelby='u';
+			$sql = "UPDATE tblbooking SET status=:status,CancelledBy=:cancelby WHERE UserId =:userid and BookingId=:bid";
+			$query = $dbh->prepare($sql);
+			$query -> bindParam(':status',$status, PDO::PARAM_STR);
+			$query -> bindParam(':cancelby',$cancelby , PDO::PARAM_STR);
+			$query-> bindParam(':userid',$userid, PDO::PARAM_STR);
+			$query-> bindParam(':bid',$bid, PDO::PARAM_STR);
+			$query -> execute();
 
-	$a=explode("/",$fdate);
-	$val=array_reverse($a);
-	 $mydate =implode("/",$val);
-	$cdate=date('Y/m/d');
-	$date1=date_create("$cdate");
-	$date2=date_create("$fdate");
- $diff=date_diff($date1,$date2);
-echo $df=$diff->format("%a");
-if($df>1)
-{
-$status=2;
-$cancelby='u';
-$sql = "UPDATE tblbooking SET status=:status,CancelledBy=:cancelby WHERE UserEmail=:email and BookingId=:bid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query -> bindParam(':cancelby',$cancelby , PDO::PARAM_STR);
-$query-> bindParam(':email',$email, PDO::PARAM_STR);
-$query-> bindParam(':bid',$bid, PDO::PARAM_STR);
-$query -> execute();
-
-$msg="Booking Cancelled successfully";
-}
-else
-{
-$error="You can't cancel booking before 24 hours";
-}
-}
+			$msg="Booking Cancelled successfully";
+		}
+		else
+		{
+			$error="You can't cancel booking before 24 hours";
+		}
+	}
 }
 }
 
@@ -130,9 +141,21 @@ $error="You can't cancel booking before 24 hours";
 <?php 
 
 $uemail=$_SESSION['login'];;
-$sql = "SELECT tblbooking.BookingId as bookid,tblbooking.PackageId as pkgid,tbltourpackages.PackageName as packagename,tblbooking.FromDate as fromdate,tblbooking.ToDate as todate,tblbooking.Comment as comment,tblbooking.status as status,tblbooking.RegDate as regdate,tblbooking.CancelledBy as cancelby,tblbooking.UpdationDate as upddate from tblbooking join tbltourpackages on tbltourpackages.PackageId=tblbooking.PackageId where UserEmail=:uemail";
+$sql1 = "SELECT id from tblusers where EmailId = :uemail";
+$query = $dbh->prepare($sql1);
+$query->bindParam(':uemail',$uemail,PDO::PARAM_STR);
+$query->execute();
+$results1 = $query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+	foreach($results1 as $result)
+	{
+		$userid = $result->id;
+	}
+}
+$sql = "SELECT tblbooking.BookingId as bookid,tblbooking.PackageId as pkgid,tbltourpackages.PackageName as packagename,tblbooking.FromDate as fromdate,tblbooking.ToDate as todate,tblbooking.Comment as comment,tblbooking.status as status,tblbooking.RegDate as regdate,tblbooking.CancelledBy as cancelby,tblbooking.UpdationDate as upddate from tblbooking join tbltourpackages on tbltourpackages.PackageId=tblbooking.PackageId where UserId=:userid";
 $query = $dbh->prepare($sql);
-$query -> bindParam(':uemail', $uemail, PDO::PARAM_STR);
+$query -> bindParam(':userid', $userid, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
