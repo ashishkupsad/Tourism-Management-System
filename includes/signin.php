@@ -33,18 +33,11 @@ echo "<script type='text/javascript'> document.location = 'package-list.php'; </
 						<div class="modal-body modal-spa">
 							<div class="login-grids">
 								<div class="login">
-										<div class="login-left">
-												<ul>
-													<li><a class="fb" href="#"><i></i>Facebook</a></li>
-													<li><a class="goog" href="#"><i></i>Google</a></li>
-													
-												</ul>
-											</div>
 									<div class="login-right">
 										<form method="post">
 											<h3>Signin with your account </h3>
-	<input type="text" name="email" id="email" placeholder="Enter your Email"  required="">	
-	<input type="password" name="password" id="password" placeholder="Password" value="" required="">	
+												<input type="text" name="email" id="email" placeholder="Enter your Email"  required="">	
+												<input type="password" name="password" id="password" placeholder="Password" value="" required="">	
 											<h4><a href="forgot-password.php">Forgot password</a></h4>
 											
 											<input type="submit" name="signin" value="SIGNIN">
