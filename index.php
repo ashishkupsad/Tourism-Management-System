@@ -45,7 +45,7 @@ include('includes/config.php');
 				<a href="offers.html"><i class="fa fa-usd"></i></a>
 			</div>
 			<div class="rup-rgt">
-				<h3>UP TO USD. 50 OFF</h3>
+				<h3>UP TO Rs. 500 OFF</h3>
 				<h4><a href="offers.html">TRAVEL SMART</a></h4>
 				
 			</div>
@@ -67,7 +67,7 @@ include('includes/config.php');
 				<a href="offers.html"><i class="fa fa-mobile"></i></a>
 			</div>
 			<div class="rup-rgt">
-				<h3>FLAT USD. 50 OFF</h3>
+				<h3>FLAT Rs. 100 OFF</h3>
 				<h4><a href="offers.html">US APP OFFER</a></h4>
 			
 			</div>
@@ -112,7 +112,7 @@ foreach($results as $result)
 					<p><b>Features</b> <?php echo htmlentities($result->PackageFetures);?></p>
 				</div>
 				<div class="col-md-3 room-right wow fadeInRight animated" data-wow-delay=".5s">
-					<h5>USD <?php echo htmlentities($result->PackagePrice);?></h5>
+					<h5>Rs. <?php echo htmlentities($result->PackagePrice);?></h5>
 					<a href="package-details.php?pkgid=<?php echo htmlentities($result->PackageId);?>" class="view">Details</a>
 				</div>
 				<div class="clearfix"></div>
