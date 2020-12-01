@@ -6,7 +6,7 @@ if (isset($_POST['submit2'])) {
 	$pid = intval($_GET['pkgid']);
 	$useremail = $_SESSION['login'];
 	$fromdate = $_POST['fromdate'];
-	$todate = date('Y-m-d', strtotime($fromdate . ' + 31 days'));
+	$todate = date('Y-m-d', strtotime($fromdate . ' + 10 days'));
 	$comment = $_POST['comment'];
 	$sql1 = "SELECT id from tblusers where EmailId = :useremail";
 	$query = $dbh->prepare($sql1);
